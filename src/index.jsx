@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Home from './home';
+import 'style/index.scss';
 
-ReactDOM.render(<div>ok!</div>, document.getElementById('app'));
-
-console.log('OK');
+ReactDOM.render(<Home />, document.getElementById('app'));

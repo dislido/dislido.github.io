@@ -1,12 +1,13 @@
 module.exports = {
   extends: 'airbnb',
+  env: {
+    "browser": true,
+    "node": true
+  },
+  parser: "babel-eslint",
   rules: {
-    'no-console': 'off',
-    'global-require': 'off',
-    'import/no-dynamic-require': 'off',
     'no-plusplus': 'off',
-    'no-param-reassign': 'off',
     'max-len': ['error', { code: 120 }],
-    'import/no-unresolved': [2, { ignore: ['^cqnode$'] }],
+    'import/no-unresolved': ['error', { ignore: ['^style/'] }],
   },
 };
