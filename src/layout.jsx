@@ -27,12 +27,12 @@ export default class Layout extends React.Component {
                 首页
               </Link>
             </Menu.Item>
-            <Menu.Item>
+            {/* <Menu.Item>
               <Link to="/pazz" replace={window.location.hash === '#/pazz'}>
                 <Icon type="code-o" />
                 啪zz
               </Link>
-            </Menu.Item>
+            </Menu.Item> */}
           </Menu>
         </header>
         <Switch>
