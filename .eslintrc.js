@@ -8,6 +8,6 @@ module.exports = {
   rules: {
     'no-plusplus': 'off',
     'max-len': ['error', { code: 120 }],
-    'import/no-unresolved': ['error', { ignore: ['^style/'] }],
+    'import/no-unresolved': ['error', { ignore: ['^style/', '^assets/'] }],
   },
 };

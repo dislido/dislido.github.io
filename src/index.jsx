@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Home from './home';
+import { HashRouter } from 'react-router-dom';
+import Layout from './layout';
 import 'style/index.scss';
 
-ReactDOM.render(<Home />, document.getElementById('app'));
+ReactDOM.render(<HashRouter><Layout /></HashRouter>, document.getElementById('app'));

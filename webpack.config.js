@@ -15,16 +15,40 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: isDev ? '[name].js' : '[name].[hash:6].js',
+    publicPath: 'dist/',
   },
   module: {
     rules: [
-      { test: /\.jsx?$/, use: 'babel-loader' },
       {
+        test: /\.jsx?$/,
+        use: [
+          'babel-loader',
+          {
+            loader: 'eslint-loader',
+            options: {
+              fix: true,
+              cache: true,
+            },
+          },
+        ],
+      }, {
         test: /\.(sa|sc|c)ss$/,
         use: [
           isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
           'css-loader',
           'sass-loader',
+        ],
+      }, {
+        test: /\.(jpe?g|png)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[path][name].[hash:6].[ext]',
+              // outputPath: path.resolve(__dirname, 'dist/assets'),
+              // publicPath: './dist/assets',
+            },
+          },
         ],
       },
     ],
@@ -45,6 +69,7 @@ module.exports = {
     extensions: ['.js', '.jsx'],
     alias: {
       style: path.resolve(__dirname, 'src/_style/'),
+      assets: path.resolve(__dirname, 'assets/'),
     },
   },
   optimization: {
