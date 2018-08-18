@@ -1,4 +1,5 @@
 import React from 'react';
+import { Menu } from 'antd';
 
 export default class Home extends React.Component {
   state = {
@@ -8,7 +9,7 @@ export default class Home extends React.Component {
   render() {
     return (
       <div>
-        ok
+        <Menu />
       </div>
     );
   }

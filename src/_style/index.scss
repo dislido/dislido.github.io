@@ -1,3 +1,22 @@
+
+body {
+  box-sizing: border-box;
+}
+
 header {
-  box-shadow: 0px 1px 5px;
+  height: 48px;
+  margin-bottom: 5px;
+  .headerMenu {
+    box-shadow: 0px 1px 5px #666;
+    position: fixed;
+    width: 100%;
+  }
+}
+
+.headerMenu-addon {
+  float: right;
+  border-bottom: 0;
+  min-width: 48px;
+  line-height: 46px;
+  text-align: center;
 }
