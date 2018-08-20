@@ -36,7 +36,6 @@ export default class WIP extends React.Component {
           <div
             className="toggleMenuBtn"
             onClick={this.handleToggleMenu}
-            onKeyUp={this.handleToggleMenu}
             role="button"
             tabIndex={0}
           >
@@ -47,9 +46,7 @@ export default class WIP extends React.Component {
           </Card>
         </div>
         <div style={{ display: 'flex' }}>
-          <Menu
-            className={['leftmenu', menuFold ? 'fold' : ''].join(' ')}
-          >
+          <Menu className={['leftmenu', menuFold ? 'fold' : ''].join(' ')}>
             <Menu.Item key={routePath.ywwuyiGame}>
               <Link to={routePath.ywwuyiGame} replace={window.location.hash === `#${routePath.ywwuyiGame}`}>丢人游戏</Link>
             </Menu.Item>
