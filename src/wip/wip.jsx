@@ -1,19 +1,35 @@
 import React from 'react';
 import { Menu, Card, Icon } from 'antd';
+import PropTypes from 'prop-types';
+import { Switch, Route, Link } from 'react-router-dom';
+import YwwuyiGame from './ywwuyi-game';
 import './wip.scss';
 
 export default class WIP extends React.Component {
-  state = {
-    // 左侧菜单是否折叠
-    menuFold: false,
+  static propTypes = {
+    match: PropTypes.shape({
+      url: PropTypes.string,
+    }).isRequired,
   };
+
+  constructor(props) {
+    super(props);
+    const { match } = this.props;
+    this.state = {
+      // 左侧菜单是否折叠
+      menuFold: false,
+      routePath: {
+        ywwuyiGame: `${match.url}/ywwuyi-game`,
+      },
+    };
+  }
 
   handleToggleMenu = () => {
     this.setState(prev => ({ menuFold: !prev.menuFold }));
   };
 
   render() {
-    const { menuFold } = this.state;
+    const { menuFold, routePath } = this.state;
     return (
       <div data-stylefield="wip">
         <div style={{ display: 'flex' }}>
@@ -31,12 +47,16 @@ export default class WIP extends React.Component {
           </Card>
         </div>
         <div style={{ display: 'flex' }}>
-          <Menu />
-          <Card style={{ width: 300, margin: '5px' }}>
-            <p>Card content</p>
-            <p>Card content</p>
-            <p>Card content</p>
-          </Card>
+          <Menu
+            className={['leftmenu', menuFold ? 'fold' : ''].join(' ')}
+          >
+            <Menu.Item key={routePath.ywwuyiGame}>
+              <Link to={routePath.ywwuyiGame} replace={window.location.hash === `#${routePath.ywwuyiGame}`}>丢人游戏</Link>
+            </Menu.Item>
+          </Menu>
+          <Switch>
+            <Route path={routePath.ywwuyiGame} component={YwwuyiGame} />
+          </Switch>
         </div>
       </div>
     );

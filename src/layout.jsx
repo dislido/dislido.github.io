@@ -13,8 +13,14 @@ export default class Layout extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      currentRoute: '/',
     };
+  }
+
+  handleRoute = (routeKey) => {
+    const { currentRoute } = this.state;
+    if (routeKey === currentRoute) return;
+    this.setState({ currentRoute: routeKey });
   }
 
   render() {
@@ -29,12 +35,6 @@ export default class Layout extends React.Component {
                   首页
                 </Link>
               </Menu.Item>
-              {/* <Menu.Item>
-                <Link to="/pazz" replace={window.location.hash === '#/pazz'}>
-                  <Icon type="code-o" />
-                  啪zz
-                </Link>
-              </Menu.Item> */}
               <Menu.Item style={{ float: 'right' }}>
                 <Link to="/wip" title="研究室" replace={window.location.hash === '#/wip'}>
                   <Icon type="filter" style={{ transform: 'rotate(180deg)', marginRight: '0' }} />

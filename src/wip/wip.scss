@@ -9,4 +9,14 @@
     font-size: 24px;
     cursor: pointer;
   }
+  .leftmenu {
+    transition: all .5s linear;
+    width: 100px;
+    box-shadow: 1px 3px 10px #666;
+    margin-right: 3px;
+    &.fold {
+      transform: translateX(-100%) scaleX(0);
+      width: 0;
+    }
+  }
 }
