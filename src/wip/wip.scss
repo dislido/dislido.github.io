@@ -20,3 +20,18 @@
     }
   }
 }
+
+[data-stylefield="wip-unicode"] {
+  .unicodeChar {
+    margin: 0;
+    text-align: center;
+    display: inline-block;
+    width: 17px;
+    border-right: 1px #DDD solid;
+  }
+  .left {
+    display: inline-block;
+    width: 100px;
+    border-right: 1px #DDD solid;
+  }
+}

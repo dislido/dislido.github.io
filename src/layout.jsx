@@ -4,10 +4,7 @@ import {
   Route, Switch, Link,
 } from 'react-router-dom';
 import Home from './home';
-import Code from './code';
 import WIP from './wip';
-
-const Pazz = Code;
 
 export default class Layout extends React.Component {
   constructor(props) {
@@ -59,7 +56,6 @@ export default class Layout extends React.Component {
           </div>
         </header>
         <Switch>
-          <Route path="/pazz" component={Pazz} />
           <Route path="/wip" component={WIP} />
           <Route path="/" component={Home} />
         </Switch>

@@ -10,6 +10,7 @@ export default class Home extends React.Component {
     return (
       <div>
         <Menu />
+        明明是首页却一行代码都没写
       </div>
     );
   }

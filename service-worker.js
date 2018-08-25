@@ -1,4 +1,5 @@
 const cacheName = 'helloWorld'; // 缓存的名称
+const self = this;
 // install 事件，它发生在浏览器安装并注册 Service Worker 时
 self.addEventListener('install', () => {
 /* event.waitUtil 用于在安装成功之前执行一些预装逻辑

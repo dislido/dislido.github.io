@@ -3,6 +3,7 @@ import { Menu, Card, Icon } from 'antd';
 import PropTypes from 'prop-types';
 import { Switch, Route, Link } from 'react-router-dom';
 import YwwuyiGame from './ywwuyi-game';
+import Unicode from './unicode';
 import './wip.scss';
 
 export default class WIP extends React.Component {
@@ -20,6 +21,7 @@ export default class WIP extends React.Component {
       menuFold: false,
       routePath: {
         ywwuyiGame: `${match.url}/ywwuyi-game`,
+        unicode: `${match.url}/unicode`,
       },
     };
   }
@@ -50,10 +52,16 @@ export default class WIP extends React.Component {
             <Menu.Item key={routePath.ywwuyiGame}>
               <Link to={routePath.ywwuyiGame} replace={window.location.hash === `#${routePath.ywwuyiGame}`}>丢人游戏</Link>
             </Menu.Item>
+            <Menu.Item key={routePath.unicode}>
+              <Link to={routePath.unicode} replace={window.location.hash === `#${routePath.unicode}`}>unicode</Link>
+            </Menu.Item>
           </Menu>
-          <Switch>
-            <Route path={routePath.ywwuyiGame} component={YwwuyiGame} />
-          </Switch>
+          <div style={{ flexGrow: 1 }}>
+            <Switch>
+              <Route path={routePath.ywwuyiGame} component={YwwuyiGame} />
+              <Route path={routePath.unicode} component={Unicode} />
+            </Switch>
+          </div>
         </div>
       </div>
     );
