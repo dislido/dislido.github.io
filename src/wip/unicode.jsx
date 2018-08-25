@@ -63,7 +63,6 @@ export default class Unicode extends React.Component {
           showQuickJumper
           total={65535}
           defaultPageSize={1000}
-          style={{ textAlign: 'center' }}
           onChange={this.onPageChange}
         />
       </div>
