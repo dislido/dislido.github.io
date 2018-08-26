@@ -1,8 +1,9 @@
 import React from 'react';
 import { Menu, Icon } from 'antd';
 import {
-  Route, Switch, Link,
+  Route, Switch, Link, Redirect,
 } from 'react-router-dom';
+import { getRouteSelectKey } from './util';
 import Home from './home';
 import WIP from './wip';
 
@@ -11,6 +12,10 @@ export default class Layout extends React.Component {
     super(props);
     this.state = {
       currentRoute: '/',
+      routePath: {
+        home: '/home',
+        wip: '/wip',
+      },
     };
   }
 
@@ -21,19 +26,24 @@ export default class Layout extends React.Component {
   }
 
   render() {
+    const { routePath } = this.state;
     return (
       <div style={{ minWidth: '1366px' }}>
         <header>
           <div className="headerMenu" style={{ display: 'flex' }}>
-            <Menu mode="horizontal" style={{ flexGrow: 1 }}>
-              <Menu.Item>
-                <Link to="/" replace={window.location.hash === '#/'}>
+            <Menu
+              selectedKeys={[getRouteSelectKey(routePath)]}
+              mode="horizontal"
+              style={{ flexGrow: 1 }}
+            >
+              <Menu.Item key={routePath.home}>
+                <Link to={routePath.home} replace={window.location.hash === '#/'}>
                   <Icon type="home" />
                   首页
                 </Link>
               </Menu.Item>
-              <Menu.Item style={{ float: 'right' }}>
-                <Link to="/wip" title="研究室" replace={window.location.hash === '#/wip'}>
+              <Menu.Item key={routePath.wip} style={{ float: 'right' }}>
+                <Link to={routePath.wip} title="研究室" replace={window.location.hash === '#/wip'}>
                   <Icon type="filter" style={{ transform: 'rotate(180deg)', marginRight: '0' }} />
                 </Link>
               </Menu.Item>
@@ -56,8 +66,9 @@ export default class Layout extends React.Component {
           </div>
         </header>
         <Switch>
-          <Route path="/wip" component={WIP} />
-          <Route path="/" component={Home} />
+          <Route path="/wip" component={WIP} strict />
+          <Route path="/home" component={Home} strict />
+          <Redirect path="/" exact strict to="/home" />
         </Switch>
       </div>
     );

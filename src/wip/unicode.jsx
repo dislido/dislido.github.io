@@ -46,13 +46,13 @@ export default class Unicode extends React.Component {
           size="small"
           dataSource={listData}
           renderItem={item => (
-            <div>
+            <div key={item.line}>
               <b className="left">
                 {item.line}
                 :
               </b>
               {[...item.str].map(it => (
-                <span className="unicodeChar">
+                <span className="unicodeChar" key={it.codePointAt(0)}>
                   {it}
                 </span>
               ))}

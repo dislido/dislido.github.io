@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Switch, Route, Link } from 'react-router-dom';
 import YwwuyiGame from './ywwuyi-game';
 import Unicode from './unicode';
+import { getRouteSelectKey } from '../util';
 import './wip.scss';
 
 export default class WIP extends React.Component {
@@ -48,7 +49,10 @@ export default class WIP extends React.Component {
           </Card>
         </div>
         <div style={{ display: 'flex' }}>
-          <Menu className={['leftmenu', menuFold ? 'fold' : ''].join(' ')}>
+          <Menu
+            selectedKeys={[getRouteSelectKey(routePath)]}
+            className={['leftmenu', menuFold ? 'fold' : ''].join(' ')}
+          >
             <Menu.Item key={routePath.ywwuyiGame}>
               <Link to={routePath.ywwuyiGame} replace={window.location.hash === `#${routePath.ywwuyiGame}`}>丢人游戏</Link>
             </Menu.Item>
