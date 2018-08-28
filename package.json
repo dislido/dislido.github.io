@@ -4,7 +4,7 @@
   "description": "dislido.github.io",
   "main": "index.js",
   "dependencies": {
-    "antd": "^3.8.1",
+    "antd": "^3.8.4",
     "file-loader": "^1.1.11",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
