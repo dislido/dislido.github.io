@@ -4,6 +4,7 @@
     height: 71px;
     border: 1px #E8E8E8 solid;
     border-right-width: 0;
+    background-color: white;
     line-height: 69px;
     text-align: center;
     font-size: 24px;
@@ -12,7 +13,6 @@
   .leftmenu {
     transition: all .5s linear;
     width: 100px;
-    box-shadow: 1px 3px 10px #666;
     margin-right: 3px;
     &.fold {
       transform: translateX(-100%) scaleX(0);

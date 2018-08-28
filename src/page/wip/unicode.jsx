@@ -2,10 +2,10 @@ import React from 'react';
 import { List, Pagination } from 'antd';
 
 /**
-   * 获得从from开始的num个字符组成的字符串
-   * @param {number} from
-   * @param {number} num
-   */
+ * 获得从from开始的num个字符组成的字符串
+ * @param {number} from
+ * @param {number} num
+ */
 function getChars(from, num) {
   const codePoints = [];
   for (let i = from, j = num; j--; i++) {

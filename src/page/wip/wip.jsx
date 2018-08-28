@@ -2,9 +2,9 @@ import React from 'react';
 import { Menu, Card, Icon } from 'antd';
 import PropTypes from 'prop-types';
 import { Switch, Route, Link } from 'react-router-dom';
+import { getRouteSelectKey } from 'util/index';
 import YwwuyiGame from './ywwuyi-game';
 import Unicode from './unicode';
-import { getRouteSelectKey } from '../util';
 import './wip.scss';
 
 export default class WIP extends React.Component {
@@ -60,7 +60,7 @@ export default class WIP extends React.Component {
               <Link to={routePath.unicode} replace={window.location.hash === `#${routePath.unicode}`}>unicode</Link>
             </Menu.Item>
           </Menu>
-          <div style={{ flexGrow: 1 }}>
+          <div style={{ flexGrow: 1, padding: '5px' }}>
             <Switch>
               <Route path={routePath.ywwuyiGame} component={YwwuyiGame} />
               <Route path={routePath.unicode} component={Unicode} />

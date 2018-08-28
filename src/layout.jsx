@@ -3,9 +3,12 @@ import { Menu, Icon } from 'antd';
 import {
   Route, Switch, Link, Redirect,
 } from 'react-router-dom';
+import Home from 'page/home';
+import WIP from 'page/wip';
+import Kancolle from 'page/kancolle';
 import { getRouteSelectKey } from './util';
-import Home from './home';
-import WIP from './wip';
+
+// const ctx = React.createContext();
 
 export default class Layout extends React.Component {
   constructor(props) {
@@ -15,6 +18,7 @@ export default class Layout extends React.Component {
       routePath: {
         home: '/home',
         wip: '/wip',
+        kancolle: '/kancolle',
       },
     };
   }
@@ -42,6 +46,12 @@ export default class Layout extends React.Component {
                   首页
                 </Link>
               </Menu.Item>
+              <Menu.Item key={routePath.kancolle}>
+                <Link to={routePath.kancolle} replace={window.location.hash === '#/kancolle'}>
+                  <Icon type="home" />
+                  砍口垒
+                </Link>
+              </Menu.Item>
               <Menu.Item key={routePath.wip} style={{ float: 'right' }}>
                 <Link to={routePath.wip} title="研究室" replace={window.location.hash === '#/wip'}>
                   <Icon type="filter" style={{ transform: 'rotate(180deg)', marginRight: '0' }} />
@@ -49,18 +59,8 @@ export default class Layout extends React.Component {
               </Menu.Item>
             </Menu>
             <div className="headerMenu-addon">
-              <a
-                href="https://github.com/dislido"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: 'block',
-                  height: '100%',
-                  color: 'black',
-                }}
-                title="github"
-              >
-                <Icon type="github" style={{ marginRight: '0', fontSize: '24px', verticalAlign: 'middle' }} />
+              <a href="https://github.com/dislido" target="_blank" rel="noopener noreferrer" title="github">
+                <Icon type="github" />
               </a>
             </div>
           </div>
@@ -68,6 +68,7 @@ export default class Layout extends React.Component {
         <Switch>
           <Route path="/wip" component={WIP} strict />
           <Route path="/home" component={Home} strict />
+          <Route path="/kancolle" component={Kancolle} strict />
           <Redirect path="/" exact strict to="/home" />
         </Switch>
       </div>
