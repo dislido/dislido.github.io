@@ -3,57 +3,49 @@ import { Menu, Icon } from 'antd';
 import {
   Route, Switch, Link, Redirect,
 } from 'react-router-dom';
-import Home from 'page/home';
-import WIP from 'page/wip';
-import Kancolle from 'page/kancolle';
-import { getRouteSelectKey } from './util';
-
-// const ctx = React.createContext();
+import { getDefaultSelectedKey, linkProps } from '@util';
+import Home from '@page/home';
+import WIP from '@page/wip';
+import Kancolle from '@page/kancolle';
 
 export default class Layout extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      currentRoute: '/',
-      routePath: {
-        home: '/home',
-        wip: '/wip',
-        kancolle: '/kancolle',
-      },
-    };
-  }
-
-  handleRoute = (routeKey) => {
-    const { currentRoute } = this.state;
-    if (routeKey === currentRoute) return;
-    this.setState({ currentRoute: routeKey });
+    this.routerSwitch = (
+      <Switch>
+        <Route path="/home" component={Home} strict />
+        <Route path="/wip" component={WIP} strict />
+        <Route path="/kancolle" component={Kancolle} strict />
+        <Redirect path="/" exact strict to="/home" />
+      </Switch>
+    );
+    this.defaultSelectedKey = getDefaultSelectedKey(this.routerSwitch);
   }
 
   render() {
-    const { routePath } = this.state;
     return (
       <div style={{ minWidth: '1366px' }}>
         <header>
           <div className="headerMenu" style={{ display: 'flex' }}>
             <Menu
-              selectedKeys={[getRouteSelectKey(routePath)]}
+              defaultSelectedKeys={[this.defaultSelectedKey]}
               mode="horizontal"
               style={{ flexGrow: 1 }}
             >
-              <Menu.Item key={routePath.home}>
-                <Link to={routePath.home} replace={window.location.hash === '#/'}>
+              <Menu.Item key="/home">
+                <Link {...linkProps('/home')}>
                   <Icon type="home" />
                   首页
                 </Link>
               </Menu.Item>
-              <Menu.Item key={routePath.kancolle}>
-                <Link to={routePath.kancolle} replace={window.location.hash === '#/kancolle'}>
+              <Menu.Item key="/kancolle">
+                <Link {...linkProps('/kancolle')}>
                   <Icon type="home" />
                   砍口垒
                 </Link>
               </Menu.Item>
-              <Menu.Item key={routePath.wip} style={{ float: 'right' }}>
-                <Link to={routePath.wip} title="研究室" replace={window.location.hash === '#/wip'}>
+              <Menu.Item key="/wip" style={{ float: 'right' }}>
+                <Link title="研究室" {...linkProps('/wip')}>
                   <Icon type="filter" style={{ transform: 'rotate(180deg)', marginRight: '0' }} />
                 </Link>
               </Menu.Item>
@@ -65,12 +57,7 @@ export default class Layout extends React.Component {
             </div>
           </div>
         </header>
-        <Switch>
-          <Route path="/wip" component={WIP} strict />
-          <Route path="/home" component={Home} strict />
-          <Route path="/kancolle" component={Kancolle} strict />
-          <Redirect path="/" exact strict to="/home" />
-        </Switch>
+        {this.routerSwitch}
       </div>
     );
   }

@@ -2,7 +2,7 @@ import React from 'react';
 import { Menu, Card, Icon } from 'antd';
 import PropTypes from 'prop-types';
 import { Switch, Route, Link } from 'react-router-dom';
-import { getRouteSelectKey } from 'util/index';
+import { getDefaultSelectedKey, linkProps } from '@util';
 import YwwuyiGame from './ywwuyi-game';
 import Unicode from './unicode';
 import './wip.scss';
@@ -16,15 +16,17 @@ export default class WIP extends React.Component {
 
   constructor(props) {
     super(props);
-    const { match } = this.props;
+    const { match } = props;
     this.state = {
       // 左侧菜单是否折叠
       menuFold: false,
-      routePath: {
-        ywwuyiGame: `${match.url}/ywwuyi-game`,
-        unicode: `${match.url}/unicode`,
-      },
     };
+    this.routerSwitch = (
+      <Switch>
+        <Route path={`${match.url}/ywwuyi-game`} component={YwwuyiGame} />
+        <Route path={`${match.url}/unicode`} component={Unicode} />
+      </Switch>
+    );
   }
 
   handleToggleMenu = () => {
@@ -32,7 +34,8 @@ export default class WIP extends React.Component {
   };
 
   render() {
-    const { menuFold, routePath } = this.state;
+    const { menuFold } = this.state;
+    const { match } = this.props;
     return (
       <div data-stylefield="wip">
         <div style={{ display: 'flex' }}>
@@ -50,21 +53,18 @@ export default class WIP extends React.Component {
         </div>
         <div style={{ display: 'flex' }}>
           <Menu
-            selectedKeys={[getRouteSelectKey(routePath)]}
+            defaultSelectedKeys={[getDefaultSelectedKey(this.routerSwitch)]}
             className={['leftmenu', menuFold ? 'fold' : ''].join(' ')}
           >
-            <Menu.Item key={routePath.ywwuyiGame}>
-              <Link to={routePath.ywwuyiGame} replace={window.location.hash === `#${routePath.ywwuyiGame}`}>丢人游戏</Link>
+            <Menu.Item key={`${match.url}/ywwuyi-game`}>
+              <Link {...linkProps(`${match.url}/ywwuyi-game`)}>丢人游戏</Link>
             </Menu.Item>
-            <Menu.Item key={routePath.unicode}>
-              <Link to={routePath.unicode} replace={window.location.hash === `#${routePath.unicode}`}>unicode</Link>
+            <Menu.Item key={`${match.url}/unicode`}>
+              <Link {...linkProps(`${match.url}/unicode`)}>unicode</Link>
             </Menu.Item>
           </Menu>
           <div style={{ flexGrow: 1, padding: '5px' }}>
-            <Switch>
-              <Route path={routePath.ywwuyiGame} component={YwwuyiGame} />
-              <Route path={routePath.unicode} component={Unicode} />
-            </Switch>
+            {this.routerSwitch}
           </div>
         </div>
       </div>

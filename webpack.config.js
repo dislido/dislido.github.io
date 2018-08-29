@@ -69,9 +69,9 @@ module.exports = {
     extensions: ['.js', '.jsx'],
     alias: {
       // style: path.resolve(__dirname, 'src/style/'),
-      assets: path.resolve(__dirname, 'assets/'),
-      page: path.resolve(__dirname, 'src/page/'),
-      util: path.resolve(__dirname, 'src/util/'),
+      '@assets': path.resolve(__dirname, 'assets/'),
+      '@page': path.resolve(__dirname, 'src/page/'),
+      '@util': path.resolve(__dirname, 'src/util/'),
     },
   },
   optimization: {
