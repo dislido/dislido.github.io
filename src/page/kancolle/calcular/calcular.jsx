@@ -15,13 +15,14 @@ export default class Calcular extends React.Component {
     this.state = {
       modalComponent: null,
       openModal: false,
+      modalTitle: '',
     };
   }
 
   handleClose = () => this.setState({ openModal: false });
 
   render() {
-    const { modalComponent, openModal } = this.state;
+    const { modalComponent, openModal, modalTitle } = this.state;
     const ModalComponent = Calcular.modalComponents[modalComponent];
     return (
       <div>
@@ -31,14 +32,21 @@ export default class Calcular extends React.Component {
               hoverable
               cover={<img alt="对空喷进弹幕发动率计算" src={aa1230img} />}
               onClick={() => {
-                this.setState({ modalComponent: 'AA1230', openModal: true });
+                this.setState({ modalComponent: 'AA1230', modalTitle: '对空喷进弹幕发动率计算', openModal: true });
               }}
             >
-              对空喷进弹幕发动率计算(WIP)
+              对空喷进弹幕发动率计算
             </Card>
           </Col>
         </Row>
-        <Modal visible={openModal} onCancel={this.handleClose} footer={null}>
+        <Modal
+          title={modalTitle}
+          visible={openModal}
+          onCancel={this.handleClose}
+          footer={null}
+          destroyOnClose
+          maskClosable={false}
+        >
           {ModalComponent && <ModalComponent />}
         </Modal>
       </div>

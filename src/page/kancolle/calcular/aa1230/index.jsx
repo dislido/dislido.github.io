@@ -1,5 +1,5 @@
 import React from 'react';
-import { InputNumber, Input, Select } from 'antd';
+import { InputNumber } from 'antd';
 import EquipInput from './equipinput';
 import '../calcular.scss';
 
@@ -25,7 +25,8 @@ export default class AA1230 extends React.Component {
   }
 
   render() {
-    const { lucky, AA } = this.state;
+    const { lucky, AA, equips } = this.state;
+    const totalValue = equips.reduce((p, c) => p + c, 0) + lucky + AA;
     return (
       <div data-stylefield="aa1230">
         <div className="input-item">
@@ -37,6 +38,18 @@ export default class AA1230 extends React.Component {
           <InputNumber style={{ width: '40%' }} min={0} value={AA} onChange={this.handleAAChange} />
         </div>
         <EquipInput onChange={cal => this.handleEquipChange(0, cal)} />
+        <EquipInput onChange={cal => this.handleEquipChange(1, cal)} />
+        <EquipInput onChange={cal => this.handleEquipChange(2, cal)} />
+        <EquipInput onChange={cal => this.handleEquipChange(3, cal)} />
+        <EquipInput onChange={cal => this.handleEquipChange(4, cal)} />
+        <EquipInput onChange={cal => this.handleEquipChange(5, cal)} />
+        <p>
+          总加权对空值,对空喷进发动率：
+          {totalValue.toFixed(2)}
+          /282=
+          {(totalValue / 2.82).toFixed(2)}
+          %
+        </p>
       </div>
     );
   }
