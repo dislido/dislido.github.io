@@ -1,7 +1,7 @@
 import React from 'react';
 import { Menu, Icon } from 'antd';
 import {
-  Route, Switch, Link, Redirect,
+  Route, Switch, Link,
 } from 'react-router-dom';
 import { getDefaultSelectedKey, linkProps } from '@util';
 import Home from '@page/home';
@@ -13,10 +13,9 @@ export default class Layout extends React.Component {
     super(props);
     this.routerSwitch = (
       <Switch>
-        <Route path="/home" component={Home} strict />
         <Route path="/wip" component={WIP} strict />
         <Route path="/kancolle" component={Kancolle} strict />
-        <Redirect path="/" exact strict to="/home" />
+        <Route path="/" component={Home} strict />
       </Switch>
     );
     this.defaultSelectedKey = getDefaultSelectedKey(this.routerSwitch);
@@ -24,7 +23,7 @@ export default class Layout extends React.Component {
 
   render() {
     return (
-      <div style={{ minWidth: '1366px' }}>
+      <div style={{ minWidth: '1366px', overflowX: 'hidden' }}>
         <header>
           <div className="headerMenu" style={{ display: 'flex' }}>
             <Menu
@@ -32,8 +31,8 @@ export default class Layout extends React.Component {
               mode="horizontal"
               style={{ flexGrow: 1 }}
             >
-              <Menu.Item key="/home">
-                <Link {...linkProps('/home')}>
+              <Menu.Item key="/">
+                <Link {...linkProps('/')}>
                   <Icon type="home" />
                   首页
                 </Link>

@@ -6,7 +6,7 @@ import { Switch, Route, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getDefaultSelectedKey, linkProps } from '@util';
 import Mainpage from './mainpage';
-import { AA1230 } from './util';
+import Calcular from './calcular';
 import './kancolle.scss';
 
 export default class Kancolle extends React.Component {
@@ -20,8 +20,8 @@ export default class Kancolle extends React.Component {
     super(props);
     this.routerSwitch = (
       <Switch>
-        <Route path={`${props.match.url}/main`} component={Mainpage} exact strict />
-        <Route path={`${props.match.url}/aa1230`} component={AA1230} exact strict />
+        <Route path={`${props.match.url}/calculuar`} component={Calcular} />
+        <Route path={`${props.match.url}`} component={Mainpage} />
       </Switch>
     );
   }
@@ -32,22 +32,21 @@ export default class Kancolle extends React.Component {
       <Row type="flex" gutter={16} data-stylefield="kancolle">
         <Col span={2}>
           <Menu defaultSelectedKeys={[getDefaultSelectedKey(this.routerSwitch)]} style={{ height: '100%' }}>
-            <Menu.Item key={`${match.url}/main`}>
-              <Link {...linkProps(`${match.url}/main`)}>
+            <Menu.Item key={`${match.url}`}>
+              <Link {...linkProps(`${match.url}`)}>
                 首页
               </Link>
             </Menu.Item>
-            <Menu.Item key={`${match.url}/aa1230`}>
-              <Link {...linkProps(`${match.url}/aa1230`)}>
-                喷进炮发动率计算
+            <Menu.Item key={`${match.url}/calculuar`}>
+              <Link {...linkProps(`${match.url}/calculuar`)}>
+                计算器
               </Link>
             </Menu.Item>
           </Menu>
         </Col>
-        <Col span={16}>
+        <Col span={22}>
           {this.routerSwitch}
         </Col>
-        <Col span={6} />
       </Row>
     );
   }
