@@ -14,9 +14,9 @@ export default class AA1230 extends React.Component {
     };
   }
 
-  handleLuckyChange = lucky => this.setState({ lucky });
+  handleLuckyChange = lucky => this.setState({ lucky: +lucky || 0 });
 
-  handleAAChange = AA => this.setState({ AA });
+  handleAAChange = AA => this.setState({ AA: +AA || 0 });
 
   handleEquipChange(index, cal) {
     const { equips } = this.state;
@@ -44,10 +44,10 @@ export default class AA1230 extends React.Component {
         <EquipInput onChange={cal => this.handleEquipChange(4, cal)} />
         <EquipInput onChange={cal => this.handleEquipChange(5, cal)} />
         <p>
-          总加权对空值,对空喷进发动率：
+          对空喷进弹幕发动率：
           {totalValue.toFixed(2)}
           /282=
-          {(totalValue / 2.82).toFixed(2)}
+          {Math.min((totalValue / 2.82), 100).toFixed(2)}
           %
         </p>
       </div>

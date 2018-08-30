@@ -36,9 +36,9 @@ export default class EquipInput extends React.Component {
 
   handleTypeChange = type => this.setState({ type }, this.calcResult);
 
-  handleValueChange = value => this.setState({ value }, this.calcResult);
+  handleValueChange = value => this.setState({ value: +value || 0 }, this.calcResult);
 
-  handleImprovementRankChange = star => this.setState({ star }, this.calcResult);
+  handleImprovementRankChange = star => this.setState({ star: +star || 0 }, this.calcResult);
 
   impFormatter = e => `★${e === '10' ? 'max' : e}`;
 
@@ -62,8 +62,15 @@ export default class EquipInput extends React.Component {
           <Select.Option value="4">高角炮</Select.Option>
           <Select.Option value="3">电探</Select.Option>
         </Select>
-        <InputNumber value={value} min={0} style={{ width: '40%' }} onChange={this.handleValueChange} />
         <InputNumber
+          disabled={type === '0'}
+          value={value}
+          min={0}
+          style={{ width: '40%' }}
+          onChange={this.handleValueChange}
+        />
+        <InputNumber
+          disabled={type === '0'}
           formatter={this.impFormatter}
           min={0}
           max={10}
