@@ -34,7 +34,7 @@ export default class EquipInput extends React.Component {
     };
   }
 
-  handleTypeChange = type => this.setState({ type }, this.calcResult);
+  handleTypeChange = type => this.setState({ type, value: 8 }, this.calcResult);
 
   handleValueChange = value => this.setState({ value: +value || 0 }, this.calcResult);
 

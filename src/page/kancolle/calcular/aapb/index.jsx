@@ -4,7 +4,7 @@ import EquipInput from './equipinput';
 import '../calcular.scss';
 
 
-export default class AA1230 extends React.Component {
+export default class AAPB extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
