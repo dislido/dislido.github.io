@@ -11,6 +11,7 @@ export default class AAPB extends React.Component {
       lucky: 0,
       AA: 0,
       equips: [0, 0, 0, 0, 0, 0],
+      isP2: [true, false, false, false, false, false],
     };
   }
 
@@ -18,15 +19,19 @@ export default class AAPB extends React.Component {
 
   handleAAChange = AA => this.setState({ AA: +AA || 0 });
 
-  handleEquipChange(index, cal) {
-    const { equips } = this.state;
+  handleEquipChange(index, cal, equipIsP2 = false) {
+    const { equips, isP2 } = this.state;
     equips[index] = cal;
-    this.setState({ equips });
+    isP2[index] = equipIsP2;
+    this.setState({ equips, isP2 });
   }
 
   render() {
-    const { lucky, AA, equips } = this.state;
+    const {
+      lucky, AA, equips, isP2,
+    } = this.state;
     const totalValue = equips.reduce((p, c) => p + c, 0) + lucky + AA;
+    const extraP2 = isP2.filter(it => it).length - 1;
     return (
       <div data-stylefield="aa1230">
         <div className="input-item">
@@ -37,17 +42,19 @@ export default class AAPB extends React.Component {
           <span className="input-label">裸对空：</span>
           <InputNumber style={{ width: '40%' }} min={0} value={AA} onChange={this.handleAAChange} />
         </div>
-        <EquipInput onChange={cal => this.handleEquipChange(0, cal)} />
-        <EquipInput onChange={cal => this.handleEquipChange(1, cal)} />
-        <EquipInput onChange={cal => this.handleEquipChange(2, cal)} />
-        <EquipInput onChange={cal => this.handleEquipChange(3, cal)} />
-        <EquipInput onChange={cal => this.handleEquipChange(4, cal)} />
-        <EquipInput onChange={cal => this.handleEquipChange(5, cal)} />
+        <EquipInput onChange={(cal, equipIsP2) => this.handleEquipChange(0, cal, equipIsP2)} constP2 />
+        <EquipInput onChange={(cal, equipIsP2) => this.handleEquipChange(1, cal, equipIsP2)} />
+        <EquipInput onChange={(cal, equipIsP2) => this.handleEquipChange(2, cal, equipIsP2)} />
+        <EquipInput onChange={(cal, equipIsP2) => this.handleEquipChange(3, cal, equipIsP2)} />
+        <EquipInput onChange={(cal, equipIsP2) => this.handleEquipChange(4, cal, equipIsP2)} />
+        <EquipInput onChange={(cal, equipIsP2) => this.handleEquipChange(5, cal, equipIsP2)} />
         <p>
           对空喷进弹幕发动率：
           {totalValue.toFixed(2)}
-          /282=
-          {Math.min((totalValue / 2.82), 100).toFixed(2)}
+          /282+
+          {`${extraP2 * 15}%`}
+          =
+          {Math.min(totalValue / 2.82 + extraP2 * 15, 100).toFixed(2)}
           %
         </p>
       </div>
