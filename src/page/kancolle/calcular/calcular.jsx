@@ -2,8 +2,8 @@ import React from 'react';
 import {
   Card, Modal,
 } from 'antd';
-import AAPB from '@page/kancolle/calcular/aapb';
-import ImageCard from '@component/imagecard';
+import AAPB from '@/page/kancolle/calcular/aapb';
+import ImageCard from '@/component/imagecard';
 import aapbimg from './img/aa1230-card.png';
 
 

@@ -3,10 +3,10 @@ import { Menu, Icon } from 'antd';
 import {
   Route, Switch, Link,
 } from 'react-router-dom';
-import { getDefaultSelectedKey, linkProps } from '@util';
-import Home from '@page/home';
-import WIP from '@page/wip';
-import Kancolle from '@page/kancolle';
+import { getDefaultSelectedKey, linkProps } from '@/util';
+import Home from '@/page/home';
+import WIP from '@/page/wip';
+import Kancolle from '@/page/kancolle';
 
 export default class Layout extends React.Component {
   constructor(props) {

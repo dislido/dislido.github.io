@@ -2,7 +2,7 @@ import React from 'react';
 import { Menu, Card, Icon } from 'antd';
 import PropTypes from 'prop-types';
 import { Switch, Route, Link } from 'react-router-dom';
-import { getDefaultSelectedKey, linkProps } from '@util';
+import { getDefaultSelectedKey, linkProps } from '@/util';
 import YwwuyiGame from './ywwuyi-game';
 import Unicode from './unicode';
 import './wip.less';

@@ -1,0 +1,16 @@
+{
+  "include": [
+    "./**/*"
+  ],
+  "exclude": [],
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@/assets/*": ["./assets/*"],
+      "@/component/*": ["./src/component/*"],
+      "@/page/*": ["./src/page/*"],
+      "@/util/*": ["./src/util/*"],
+      "@/util": ["./src/util"]
+    }
+  }
+}

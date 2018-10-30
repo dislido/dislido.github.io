@@ -4,7 +4,7 @@ import {
 } from 'antd';
 import { Switch, Route, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { getDefaultSelectedKey, linkProps } from '@util';
+import { getDefaultSelectedKey, linkProps } from '@/util';
 import Mainpage from './mainpage';
 import Calcular from './calcular';
 import './kancolle.less';
