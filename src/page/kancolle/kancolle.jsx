@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { getDefaultSelectedKey, linkProps } from '@util';
 import Mainpage from './mainpage';
 import Calcular from './calcular';
-import './kancolle.scss';
+import './kancolle.less';
 
 export default class Kancolle extends React.Component {
   static propTypes = {

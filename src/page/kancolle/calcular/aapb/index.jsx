@@ -1,7 +1,7 @@
 import React from 'react';
 import { InputNumber } from 'antd';
 import EquipInput from './equipinput';
-import '../calcular.scss';
+import '../calcular.less';
 
 
 export default class AAPB extends React.Component {

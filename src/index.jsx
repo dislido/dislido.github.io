@@ -4,7 +4,7 @@ import { HashRouter } from 'react-router-dom';
 import zhCN from 'antd/lib/locale-provider/zh_CN';
 import { LocaleProvider } from 'antd';
 import Layout from './layout';
-import './style/index.scss';
+import './style/index.less';
 
 ReactDOM.render(
   <LocaleProvider locale={zhCN}>

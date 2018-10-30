@@ -32,11 +32,17 @@ module.exports = {
           },
         ],
       }, {
-        test: /\.(sa|sc|c)ss$/,
+        test: /\.css$/,
         use: [
           isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
           'css-loader',
-          'sass-loader',
+        ],
+      }, {
+        test: /\.less$/,
+        use: [
+          isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader',
+          'less-loader',
         ],
       }, {
         test: /\.(jpe?g|png)$/,
@@ -54,7 +60,7 @@ module.exports = {
     ],
   },
   plugins: [
-    new CleanWebpackPlugin(['dist'], { }),
+    new CleanWebpackPlugin(['dist']),
     new MiniCssExtractPlugin({
       filename: isDev ? '[name].css' : '[name].[hash:6].css',
       chunkFilename: '[id].css',
@@ -65,6 +71,7 @@ module.exports = {
     }),
   ],
   mode,
+  devtool: false, // cheap-source-map
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
@@ -72,6 +79,7 @@ module.exports = {
       '@assets': path.resolve(__dirname, 'assets/'),
       '@page': path.resolve(__dirname, 'src/page/'),
       '@util': path.resolve(__dirname, 'src/util/'),
+      '@component': path.resolve(__dirname, 'src/component/'),
     },
   },
   optimization: {
