@@ -62049,16 +62049,15 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./src/page/kancolle/calcular/aapb/equipinput.jsx":
-/*!********************************************************!*\
-  !*** ./src/page/kancolle/calcular/aapb/equipinput.jsx ***!
-  \********************************************************/
+/***/ "./src/page/kancolle/calcular/aapb/equipinput-hook.jsx":
+/*!*************************************************************!*\
+  !*** ./src/page/kancolle/calcular/aapb/equipinput-hook.jsx ***!
+  \*************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return EquipInput; });
 /* harmony import */ var antd_es_input_style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd/es/input/style/css */ "./node_modules/antd/es/input/style/css.js");
 /* harmony import */ var antd_es_input__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd/es/input */ "./node_modules/antd/es/input/index.js");
 /* harmony import */ var antd_es_input_number_style_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! antd/es/input-number/style/css */ "./node_modules/antd/es/input-number/style/css.js");
@@ -62076,10 +62075,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-
-
+const {
+  useState,
+  useEffect
+} = react__WEBPACK_IMPORTED_MODULE_6___default.a;
 
 function calcStar(star, type) {
   if (type === '6' || type === '106') return 4 * star ** 0.5;
@@ -62087,125 +62087,74 @@ function calcStar(star, type) {
   return 0;
 }
 
-const impFormatter = e => `★${e === '10' ? 'max' : e}`;
-
-class EquipInput extends react__WEBPACK_IMPORTED_MODULE_6___default.a.Component {
-  constructor(props) {
-    super(props);
-
-    _defineProperty(this, "handleTypeChange", type => this.setState({
-      type,
-      value: 8
-    }, this.calcResult));
-
-    _defineProperty(this, "handleValueChange", value => this.setState({
-      value: +value || 0
-    }, this.calcResult));
-
-    _defineProperty(this, "handleImprovementRankChange", star => this.setState({
-      star: +star || 0
-    }, this.calcResult));
-
-    this.state = {
-      type: '0',
-      value: 0,
-      star: 0,
-      result: 0
-    };
-  }
-
-  componentDidMount() {
-    const {
-      constP2
-    } = this.props;
-    if (!constP2) return;
-    this.setState({
-      type: '106',
-      value: 8
-    }, () => this.calcResult());
-  }
-
-  calcResult() {
-    const {
-      type,
-      value,
-      star
-    } = this.state;
-    const {
-      onChange
-    } = this.props;
-    const result = type % 100 * value + calcStar(star, type);
-    this.setState({
-      result
-    });
-    onChange(result, type === '106');
-  }
-
-  render() {
-    const {
-      type,
-      value,
-      star,
-      result
-    } = this.state;
-    const {
-      constP2
-    } = this.props;
-    return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(antd_es_input__WEBPACK_IMPORTED_MODULE_1__["default"].Group, {
-      compact: true
-    }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(antd_es_select__WEBPACK_IMPORTED_MODULE_5__["default"], {
-      value: type,
-      onChange: this.handleTypeChange,
-      className: "select-type",
-      disabled: constP2
-    }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(antd_es_select__WEBPACK_IMPORTED_MODULE_5__["default"].Option, {
-      value: "0"
-    }, "\u65E0"), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(antd_es_select__WEBPACK_IMPORTED_MODULE_5__["default"].Option, {
-      value: "6"
-    }, "\u673A\u67AA"), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(antd_es_select__WEBPACK_IMPORTED_MODULE_5__["default"].Option, {
-      value: "4"
-    }, "\u9AD8\u89D2\u70AE"), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(antd_es_select__WEBPACK_IMPORTED_MODULE_5__["default"].Option, {
-      value: "3"
-    }, "\u7535\u63A2"), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(antd_es_select__WEBPACK_IMPORTED_MODULE_5__["default"].Option, {
-      value: "106"
-    }, "\u55B72")), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(antd_es_input_number__WEBPACK_IMPORTED_MODULE_3__["default"], {
-      disabled: type === '0' || constP2,
-      value: value,
-      min: 0,
-      style: {
-        width: '40%'
-      },
-      onChange: this.handleValueChange
-    }), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(antd_es_input_number__WEBPACK_IMPORTED_MODULE_3__["default"], {
-      disabled: type === '0',
-      formatter: impFormatter,
-      min: 0,
-      max: 10,
-      value: star,
-      onChange: this.handleImprovementRankChange,
-      style: {
-        width: '20%'
-      }
-    }), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(antd_es_input__WEBPACK_IMPORTED_MODULE_1__["default"], {
-      value: result,
-      disabled: true,
-      title: "\u63D0\u4F9B\u7684\u52A0\u6743\u5BF9\u7A7A\u503C",
-      style: {
-        width: '40px'
-      }
-    }));
-  }
-
+function calcResult(type, value, star) {
+  return type % 100 * value + calcStar(star, type);
 }
 
-_defineProperty(EquipInput, "propTypes", {
+function EquipInputHook({
+  constP2 = false,
+  onChange
+}) {
+  const [type, setType] = useState(constP2 ? '106' : '0');
+  const [value, setValue] = useState(constP2 ? 8 : 0);
+  const [star, setStar] = useState(0);
+  const result = calcResult(type, value, star);
+  useEffect(() => {
+    onChange(result, type === '106');
+  }, [result, type === '106']);
+  return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(antd_es_input__WEBPACK_IMPORTED_MODULE_1__["default"].Group, {
+    compact: true
+  }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(antd_es_select__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    value: type,
+    onChange: setType,
+    className: "select-type",
+    disabled: constP2
+  }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(antd_es_select__WEBPACK_IMPORTED_MODULE_5__["default"].Option, {
+    value: "0"
+  }, "\u65E0"), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(antd_es_select__WEBPACK_IMPORTED_MODULE_5__["default"].Option, {
+    value: "6"
+  }, "\u673A\u67AA"), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(antd_es_select__WEBPACK_IMPORTED_MODULE_5__["default"].Option, {
+    value: "4"
+  }, "\u9AD8\u89D2\u70AE"), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(antd_es_select__WEBPACK_IMPORTED_MODULE_5__["default"].Option, {
+    value: "3"
+  }, "\u7535\u63A2"), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(antd_es_select__WEBPACK_IMPORTED_MODULE_5__["default"].Option, {
+    value: "106"
+  }, "\u55B72")), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(antd_es_input_number__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    disabled: type === '0' || constP2,
+    value: value,
+    min: 0,
+    style: {
+      width: '40%'
+    },
+    onChange: val => setValue(+val)
+  }), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(antd_es_input_number__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    disabled: type === '0',
+    formatter: e => `★${e === '10' ? 'max' : e}`,
+    min: 0,
+    max: 10,
+    value: star,
+    onChange: improvementRank => setStar(+improvementRank),
+    style: {
+      width: '20%'
+    }
+  }), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(antd_es_input__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    value: result,
+    disabled: true,
+    title: "\u63D0\u4F9B\u7684\u52A0\u6743\u5BF9\u7A7A\u503C",
+    style: {
+      width: '40px'
+    }
+  }));
+}
+
+EquipInputHook.propTypes = {
   constP2: prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.bool,
   onChange: prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.func.isRequired
-});
-
-_defineProperty(EquipInput, "defaultProps", {
+};
+EquipInputHook.defaultProps = {
   constP2: false
-});
+};
+/* harmony default export */ __webpack_exports__["default"] = (EquipInputHook);
 
 /***/ }),
 
@@ -62223,7 +62172,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var antd_es_input_number__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd/es/input-number */ "./node_modules/antd/es/input-number/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _equipinput__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./equipinput */ "./src/page/kancolle/calcular/aapb/equipinput.jsx");
+/* harmony import */ var _equipinput_hook__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./equipinput-hook */ "./src/page/kancolle/calcular/aapb/equipinput-hook.jsx");
 /* harmony import */ var _calcular_less__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../calcular.less */ "./src/page/kancolle/calcular/calcular.less");
 /* harmony import */ var _calcular_less__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_calcular_less__WEBPACK_IMPORTED_MODULE_4__);
 
@@ -62300,18 +62249,18 @@ class AAPB extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Component {
       min: 0,
       value: AA,
       onChange: this.handleAAChange
-    })), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_equipinput__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    })), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_equipinput_hook__WEBPACK_IMPORTED_MODULE_3__["default"], {
       onChange: (cal, equipIsP2) => this.handleEquipChange(0, cal, equipIsP2),
       constP2: true
-    }), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_equipinput__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    }), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_equipinput_hook__WEBPACK_IMPORTED_MODULE_3__["default"], {
       onChange: (cal, equipIsP2) => this.handleEquipChange(1, cal, equipIsP2)
-    }), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_equipinput__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    }), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_equipinput_hook__WEBPACK_IMPORTED_MODULE_3__["default"], {
       onChange: (cal, equipIsP2) => this.handleEquipChange(2, cal, equipIsP2)
-    }), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_equipinput__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    }), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_equipinput_hook__WEBPACK_IMPORTED_MODULE_3__["default"], {
       onChange: (cal, equipIsP2) => this.handleEquipChange(3, cal, equipIsP2)
-    }), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_equipinput__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    }), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_equipinput_hook__WEBPACK_IMPORTED_MODULE_3__["default"], {
       onChange: (cal, equipIsP2) => this.handleEquipChange(4, cal, equipIsP2)
-    }), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_equipinput__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    }), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_equipinput_hook__WEBPACK_IMPORTED_MODULE_3__["default"], {
       onChange: (cal, equipIsP2) => this.handleEquipChange(5, cal, equipIsP2)
     }), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", null, "\u5BF9\u7A7A\u55B7\u8FDB\u5F39\u5E55\u53D1\u52A8\u7387\uFF1A", totalValue.toFixed(2), "/282+", `${extraP2 * 15}%`, "=", Math.min(totalValue / 2.82 + extraP2 * 15, 100).toFixed(2), "%"));
   }

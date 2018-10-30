@@ -1,6 +1,6 @@
 import React from 'react';
 import { InputNumber } from 'antd';
-import EquipInput from './equipinput';
+import EquipInput from './equipinput-hook';
 import '../calcular.less';
 
 

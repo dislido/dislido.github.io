@@ -14,7 +14,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: isDev ? '[name].js' : '[name].[hash:6].js',
+    filename: '[name].[hash:6].js',
     publicPath: 'dist/',
   },
   module: {
