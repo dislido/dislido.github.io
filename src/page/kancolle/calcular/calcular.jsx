@@ -3,7 +3,7 @@ import {
   Card, Modal,
 } from 'antd';
 import AAPB from '@/page/kancolle/calcular/aapb';
-import ImageCard from '@/component/imagecard';
+// import ImageCard from '@/component/imagecard';
 import aapbimg from './img/aa1230-card.png';
 
 
@@ -29,7 +29,7 @@ export default class Calcular extends React.Component {
     return (
       <div>
         <div className="cardset" style={{ paddingTop: '8px' }}>
-          <ImageCard
+          {/* <ImageCard
             cardProps={{
               hoverable: true,
               onClick: () => {
@@ -38,7 +38,7 @@ export default class Calcular extends React.Component {
             }}
             imgNode={<img alt="对空喷进弹幕发动率计算" src={aapbimg} style={{ width: '250px' }} />}
             hoverNode="test"
-          />
+          /> */}
           <Card
             hoverable
             cover={<img alt="对空喷进弹幕发动率计算" src={aapbimg} style={{ width: '250px' }} />}
