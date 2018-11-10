@@ -1,63 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { InputNumber } from 'antd';
-import EquipInput from './equipinput-hook';
+import { useNumberState } from '@/util/hooks';
+import EquipInput from './equipinput';
 import '../calcular.less';
 
+export default function AAPB() {
+  const [lucky, setLucky] = useNumberState(0);
+  const [AA, setAA] = useNumberState(0);
+  const [equipsWeightedAA, setEquipsWeightedAA] = useState([0, 0, 0, 0, 0, 0]);
+  const [equipsIsP2, setEquipsIsP2] = useState([true, false, false, false, false, false]);
 
-export default class AAPB extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      lucky: 0,
-      AA: 0,
-      equips: [0, 0, 0, 0, 0, 0],
-      isP2: [true, false, false, false, false, false],
-    };
-  }
+  const handleEquipChange = index => (weightedAA, isP2 = false) => {
+    equipsWeightedAA[index] = weightedAA;
+    equipsIsP2[index] = isP2;
+    setEquipsWeightedAA(equipsWeightedAA);
+    setEquipsIsP2(equipsIsP2);
+  };
 
-  handleLuckyChange = lucky => this.setState({ lucky: +lucky || 0 });
-
-  handleAAChange = AA => this.setState({ AA: +AA || 0 });
-
-  handleEquipChange(index, cal, equipIsP2 = false) {
-    const { equips, isP2 } = this.state;
-    equips[index] = cal;
-    isP2[index] = equipIsP2;
-    this.setState({ equips, isP2 });
-  }
-
-  render() {
-    const {
-      lucky, AA, equips, isP2,
-    } = this.state;
-    const totalValue = equips.reduce((p, c) => p + c, 0) + lucky + AA;
-    const extraP2 = isP2.filter(it => it).length - 1;
-    return (
-      <div data-stylefield="aa1230">
-        <div className="input-item">
-          <span className="input-label">运：</span>
-          <InputNumber style={{ width: '40%' }} min={0} value={lucky} onChange={this.handleLuckyChange} />
-        </div>
-        <div className="input-item">
-          <span className="input-label">裸对空：</span>
-          <InputNumber style={{ width: '40%' }} min={0} value={AA} onChange={this.handleAAChange} />
-        </div>
-        <EquipInput onChange={(cal, equipIsP2) => this.handleEquipChange(0, cal, equipIsP2)} constP2 />
-        <EquipInput onChange={(cal, equipIsP2) => this.handleEquipChange(1, cal, equipIsP2)} />
-        <EquipInput onChange={(cal, equipIsP2) => this.handleEquipChange(2, cal, equipIsP2)} />
-        <EquipInput onChange={(cal, equipIsP2) => this.handleEquipChange(3, cal, equipIsP2)} />
-        <EquipInput onChange={(cal, equipIsP2) => this.handleEquipChange(4, cal, equipIsP2)} />
-        <EquipInput onChange={(cal, equipIsP2) => this.handleEquipChange(5, cal, equipIsP2)} />
-        <p>
-          对空喷进弹幕发动率：
-          {totalValue.toFixed(2)}
-          /282+
-          {`${extraP2 * 15}%`}
-          =
-          {Math.min(totalValue / 2.82 + extraP2 * 15, 100).toFixed(2)}
-          %
-        </p>
+  const totalWeightedAA = (equipsWeightedAA.reduce((p, c) => p + c, 0) + lucky + AA).toFixed(2);
+  const extraP2Bonus = (equipsIsP2.filter(it => it).length - 1) * 15;
+  const rate = (totalWeightedAA / 2.82 + extraP2Bonus).toFixed(2);
+  const result = `对空喷进弹幕发动率：${totalWeightedAA}/282+${extraP2Bonus}%=${rate}%`;
+  return (
+    <div data-stylefield="aapb">
+      <div className="input-item">
+        <span className="input-label">运：</span>
+        <InputNumber style={{ width: '40%' }} min={0} value={lucky} onChange={setLucky} />
       </div>
-    );
-  }
+      <div className="input-item">
+        <span className="input-label">裸对空：</span>
+        <InputNumber style={{ width: '40%' }} min={0} value={AA} onChange={setAA} />
+      </div>
+      <EquipInput onChange={handleEquipChange(0)} constP2 />
+      <EquipInput onChange={handleEquipChange(1)} />
+      <EquipInput onChange={handleEquipChange(2)} />
+      <EquipInput onChange={handleEquipChange(3)} />
+      <EquipInput onChange={handleEquipChange(4)} />
+      <EquipInput onChange={handleEquipChange(5)} />
+      <p>{result}</p>
+    </div>
+  );
 }

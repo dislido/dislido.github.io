@@ -1,8 +1,8 @@
 {
   "include": [
-    "./src/*"
+    "./src/*", "src/util/hooks/index.js"
   ],
-  "exclude": [],
+  "exclude": ["node_modules"],
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
