@@ -9,45 +9,41 @@ import Mainpage from './mainpage';
 import Calcular from './calcular';
 import './kancolle.less';
 
-export default class Kancolle extends React.Component {
-  static propTypes = {
-    match: PropTypes.shape({
-      url: PropTypes.string,
-    }).isRequired,
-  }
+function Kancolle({ match }) {
+  const routerSwitch = (
+    <Switch>
+      <Route path={`${match.url}/calculuar`} component={Calcular} />
+      <Route path={`${match.url}`} component={Mainpage} />
+    </Switch>
+  );
 
-  constructor(props) {
-    super(props);
-    this.routerSwitch = (
-      <Switch>
-        <Route path={`${props.match.url}/calculuar`} component={Calcular} />
-        <Route path={`${props.match.url}`} component={Mainpage} />
-      </Switch>
-    );
-  }
-
-  render() {
-    const { match } = this.props;
-    return (
-      <Row type="flex" gutter={16} data-stylefield="kancolle">
-        <Col span={2}>
-          <Menu defaultSelectedKeys={[getDefaultSelectedKey(this.routerSwitch)]} style={{ height: '100%' }}>
-            <Menu.Item key={`${match.url}`}>
-              <Link {...linkProps(`${match.url}`)}>
-                首页
-              </Link>
-            </Menu.Item>
-            <Menu.Item key={`${match.url}/calculuar`}>
-              <Link {...linkProps(`${match.url}/calculuar`)}>
-                计算器
-              </Link>
-            </Menu.Item>
-          </Menu>
-        </Col>
-        <Col span={22}>
-          {this.routerSwitch}
-        </Col>
-      </Row>
-    );
-  }
+  return (
+    <Row type="flex" gutter={16} data-stylefield="kancolle">
+      <Col span={2}>
+        <Menu defaultSelectedKeys={[getDefaultSelectedKey(routerSwitch)]} style={{ height: '100%' }}>
+          <Menu.Item key={`${match.url}`}>
+            <Link {...linkProps(`${match.url}`)}>
+              首页
+            </Link>
+          </Menu.Item>
+          <Menu.Item key={`${match.url}/calculuar`}>
+            <Link {...linkProps(`${match.url}/calculuar`)}>
+              计算器
+            </Link>
+          </Menu.Item>
+        </Menu>
+      </Col>
+      <Col span={22}>
+        {routerSwitch}
+      </Col>
+    </Row>
+  );
 }
+
+Kancolle.propTypes = {
+  match: PropTypes.shape({
+    url: PropTypes.string,
+  }).isRequired,
+};
+
+export default Kancolle;
