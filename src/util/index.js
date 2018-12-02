@@ -1,6 +1,5 @@
 import { matchPath } from 'react-router';
 
-window.matchPath = matchPath;
 export const config = {
   // hash or browser
   routeType: 'hash',

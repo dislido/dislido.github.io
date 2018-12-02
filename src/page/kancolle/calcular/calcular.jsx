@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import {
-  Card, Modal,
-} from 'antd';
+import { Modal } from 'antd';
 import AAPB from '@/page/kancolle/calcular/aapb';
 import { useModal } from '@/util/hooks/hooks4antd';
-// import ImageCard from '@/component/imagecard';
+import ImageCard from '@/component/imagecard';
 import aapbimg from './img/aa1230-card.png';
 
 const calcComponents = {
@@ -24,23 +22,13 @@ export default function Calcular() {
   return (
     <div>
       <div className="cardset" style={{ paddingTop: '8px' }}>
-        {/* <ImageCard
-          cardProps={{
-            hoverable: true,
-            onClick: () => {
-              this.setState({ modalComponent: 'AAPB', modalTitle: '对空喷进弹幕发动率计算', openModal: true });
-            },
-          }}
-          imgNode={<img alt="对空喷进弹幕发动率计算" src={aapbimg} style={{ width: '250px' }} />}
-          hoverNode="test"
-        /> */}
-        <Card
+        <ImageCard
           hoverable
-          cover={<img alt="对空喷进弹幕发动率计算" src={aapbimg} style={{ width: '250px' }} />}
           onClick={() => openCalcModal('AAPB', '对空喷进弹幕发动率计算')}
-        >
-          对空喷进弹幕发动率计算
-        </Card>
+          backgroundImage={aapbimg}
+          style={{ width: 240, height: 180 }}
+          text="对空喷进弹幕发动率计算"
+        />
       </div>
       <Modal footer={null} destroyOnClose maskClosable {...modalProps}>
         {CalcComponent && <CalcComponent />}

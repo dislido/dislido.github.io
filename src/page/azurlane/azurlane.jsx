@@ -6,12 +6,12 @@ import { Switch, Route, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getDefaultSelectedKey, linkProps } from '@/util';
 import Mainpage from './mainpage';
-import Calcular from './calcular';
+import Games from './games';
 
-function Kancolle({ match }) {
+function Azurlane({ match }) {
   const routerSwitch = (
     <Switch>
-      <Route path={`${match.url}/calculuar`} component={Calcular} />
+      <Route path={`${match.url}/games`} component={Games} />
       <Route path={`${match.url}`} component={Mainpage} />
     </Switch>
   );
@@ -25,9 +25,9 @@ function Kancolle({ match }) {
               首页
             </Link>
           </Menu.Item>
-          <Menu.Item key={`${match.url}/calculuar`}>
-            <Link {...linkProps(`${match.url}/calculuar`)}>
-              计算器
+          <Menu.Item key={`${match.url}/games`}>
+            <Link {...linkProps(`${match.url}/games`)}>
+              小游戏
             </Link>
           </Menu.Item>
         </Menu>
@@ -39,10 +39,10 @@ function Kancolle({ match }) {
   );
 }
 
-Kancolle.propTypes = {
+Azurlane.propTypes = {
   match: PropTypes.shape({
     url: PropTypes.string,
   }).isRequired,
 };
 
-export default Kancolle;
+export default Azurlane;

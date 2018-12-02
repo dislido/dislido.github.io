@@ -1,22 +1,25 @@
 import React from 'react';
 import { Card } from 'antd';
+import './imagecard.less';
 
-export default class ImageCard extends React.PureComponent {
-  render() {
-    const { cardProps, imgNode, hoverNode } = this.props;
-    return (
-      <Card
-        bodyStyle={{ display: 'none' }}
-        {...cardProps}
-        cover={(
-          <div>
-            {imgNode}
-            <div style={{ position: 'absolute', left: 0, bottom: 0 }}>
-              {hoverNode}
-            </div>
-          </div>
-        )}
-      />
-    );
-  }
-}
+export default React.memo((props) => {
+  const {
+    backgroundImage, bodyStyle, text, ...cardProps
+  } = props;
+  return (
+    <Card
+      bodyStyle={{
+        height: '100%',
+        background: `url('${backgroundImage}') #F7F7F7 no-repeat center / contain`,
+        ...bodyStyle,
+      }}
+      {...cardProps}
+    >
+      <div className="imagecard">
+        <h3>
+          {text}
+        </h3>
+      </div>
+    </Card>
+  );
+});

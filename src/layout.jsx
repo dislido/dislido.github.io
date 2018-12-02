@@ -7,12 +7,14 @@ import { getDefaultSelectedKey, linkProps } from '@/util';
 import Home from '@/page/home';
 import WIP from '@/page/wip';
 import Kancolle from '@/page/kancolle';
+import Azurlane from '@/page/azurlane';
 
 export default function Layout() {
   const routerSwitch = (
     <Switch>
       <Route path="/wip" component={WIP} strict />
       <Route path="/kancolle" component={Kancolle} strict />
+      <Route path="/azurlane" component={Azurlane} strict />
       <Route path="/" component={Home} strict />
     </Switch>
   );
@@ -37,6 +39,12 @@ export default function Layout() {
               <Link {...linkProps('/kancolle')}>
                 <Icon type="home" />
                 砍口垒
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="/azurlane">
+              <Link {...linkProps('/azurlane')}>
+                <Icon type="home" />
+                碧蓝航线
               </Link>
             </Menu.Item>
             <Menu.Item key="/wip" style={{ float: 'right' }}>
