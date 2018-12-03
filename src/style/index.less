@@ -34,10 +34,11 @@ header {
 .cardset {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
-  &.cardset-default {
-    div {
-      width: 200px;
-    }
+  .ant-card {
+    margin: 0 24px 12px 0;
+  }
+  &.cardset-default .ant-card {
+    width: 240px;
+    height: 180px;
   }
 }

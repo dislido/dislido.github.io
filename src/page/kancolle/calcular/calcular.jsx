@@ -20,19 +20,17 @@ export default function Calcular() {
   };
 
   return (
-    <div>
-      <div className="cardset" style={{ paddingTop: '8px' }}>
+    <>
+      <div className="cardset cardset-default" style={{ paddingTop: '8px' }}>
         <ImageCard
-          hoverable
           onClick={() => openCalcModal('AAPB', '对空喷进弹幕发动率计算')}
           backgroundImage={aapbimg}
-          style={{ width: 240, height: 180 }}
           text="对空喷进弹幕发动率计算"
         />
       </div>
       <Modal footer={null} destroyOnClose maskClosable {...modalProps}>
         {CalcComponent && <CalcComponent />}
       </Modal>
-    </div>
+    </>
   );
 }
