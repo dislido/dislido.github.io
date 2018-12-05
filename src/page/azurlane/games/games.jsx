@@ -23,12 +23,12 @@ export default function Games() {
     <>
       <div className="cardset cardset-default" style={{ paddingTop: '8px' }}>
         <ImageCard
-          text="像素画(WIP)"
+          text="像素画"
           backgroundImage={pixeldrawerImg}
           onClick={() => openGameModal('PixelDrawer', '像素画', { width: 641 })}
         />
       </div>
-      <Modal footer={null} destroyOnClose maskClosable {...modalProps}>
+      <Modal footer={null} destroyOnClose maskClosable={false} {...modalProps}>
         {GameComponent && <GameComponent />}
       </Modal>
     </>

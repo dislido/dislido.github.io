@@ -8,6 +8,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const mode = process.env.NODE_ENV === 'production' ? 'production' : 'development';
 const isDev = mode === 'development';
 
+// todo: dll
 module.exports = {
   entry: {
     index: './src/index.jsx',
