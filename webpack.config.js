@@ -1,14 +1,19 @@
 const path = require('path');
+const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const dllManifestDev = require('./vendor/manifest.dev.json');
+const dllManifestProd = require('./vendor/manifest.prod.json');
 
 const mode = process.env.NODE_ENV === 'production' ? 'production' : 'development';
 const isDev = mode === 'development';
+const vendorFileName = `${(isDev ? dllManifestDev : dllManifestProd).name}.${isDev ? 'dev' : 'prod'}.js`;
 
-// todo: dll
 module.exports = {
   entry: {
     index: './src/index.jsx',
@@ -61,7 +66,13 @@ module.exports = {
     ],
   },
   plugins: [
-    new CleanWebpackPlugin(['dist']),
+    new CleanWebpackPlugin(['dist/**/*']),
+    new CopyWebpackPlugin([
+      { from: `vendor/${vendorFileName}` },
+    ]),
+    new webpack.DllReferencePlugin({
+      manifest: isDev ? dllManifestDev : dllManifestProd,
+    }),
     new MiniCssExtractPlugin({
       filename: isDev ? '[name].css' : '[name].[hash:6].css',
       chunkFilename: '[id].css',
@@ -69,6 +80,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: '../index.html',
       template: 'src/index.template.html',
+    }),
+    new HtmlWebpackIncludeAssetsPlugin({
+      assets: [vendorFileName],
+      append: false,
     }),
   ],
   mode,
