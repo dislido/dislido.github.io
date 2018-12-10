@@ -1,38 +1,53 @@
 import React, { useState } from 'react';
-import { Input } from 'antd';
+import { Input, Popconfirm } from 'antd';
 import InputGroupAddon from '@/component/inputgroup-addon';
 import './pixeldrawer.less';
 
 const defaultColors = ['#ffffff', '#322829', '#ffd370', '#75fcad', '#7184fd', '#ff6f96', '#fcd7c7'];
-const init = [];
-for (let i = 0; i < 22; i++) {
-  const line = new Array(37);
-  line.fill(null);
-  init.push(line);
+function initCanvas() {
+  const init = [];
+  for (let i = 0; i < 22; i++) {
+    const line = new Array(37);
+    line.fill(null);
+    init.push(line);
+  }
+  return init;
 }
-
+function useColor() {
+  const [currentColor, setCurrentColor] = useState('#ffffff');
+  const [colorList, setColorList] = useState(defaultColors);
+  return {
+    currentColor,
+    setCurrentColor,
+    colorList,
+    addColor: () => {
+      if (!currentColor || colorList.includes(currentColor) || colorList.length >= 37) return;
+      colorList.push(currentColor);
+      setColorList(colorList);
+    },
+    deleteColor: () => {
+      if (!currentColor) return;
+      colorList.splice(colorList.indexOf(currentColor), 1);
+      setColorList(colorList);
+    },
+    isColorSaved: colorList.includes(currentColor),
+  };
+}
 /**
  * @todo 画布格子的点击事件交给画布处理
  */
 export default function PixelDrawer() {
-  const [lines, setLines] = useState(init);
-  const [currentColor, setCurrentColor] = useState('#ffffff');
+  const [lines, setLines] = useState(initCanvas());
   const [backgroundColor, setBackgroundColor] = useState('#bdadad');
-  const [colorList, setColorList] = useState(defaultColors);
-  const addColor = () => {
-    if (!currentColor || colorList.includes(currentColor) || colorList.length >= 37) return;
-    colorList.push(currentColor);
-    setColorList(colorList);
-  };
-  const deleteColor = () => {
-    colorList.splice(colorList.indexOf(currentColor), 1);
-    setColorList(colorList);
-  };
+  const {
+    currentColor, setCurrentColor, colorList, addColor, deleteColor, isColorSaved,
+  } = useColor();
   const draw = (e) => {
     const [x, y] = e.target.dataset.pos.split(' ');
     lines[y][x] = currentColor;
     setLines(lines);
   };
+  const clearCanvas = () => setLines(initCanvas());
   return (
     <div>
       <div>
@@ -45,8 +60,17 @@ export default function PixelDrawer() {
             style={{ width: 60 }}
             className={currentColor ? '' : 'input-color-eraser'}
           />
-          <Input type="button" style={{ width: 108 }} value="添加到调色板" onClick={addColor} />
-          <Input type="button" style={{ width: 108 }} value="从调色板删除" onClick={deleteColor} />
+          {currentColor !== null && (
+            <Input
+              type="button"
+              style={{ width: 108 }}
+              value={isColorSaved ? '从调色板删除' : '添加到调色板'}
+              onClick={isColorSaved ? deleteColor : addColor}
+            />
+          )}
+          <Popconfirm title="确认清空画布？" onConfirm={clearCanvas}>
+            <Input type="button" style={{ width: 80 }} value="清空画布" />
+          </Popconfirm>
         </Input.Group>
         <Input.Group className="margin8">
           <InputGroupAddon value="背景颜色：" style={{ width: 94 }} />

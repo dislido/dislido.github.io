@@ -5,10 +5,12 @@ import {
 import { Switch, Route, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getDefaultSelectedKey, linkProps } from '@/util';
+import useTitleEffect from '@/util/hooks/use-title-effect';
 import Mainpage from './mainpage';
 import Games from './games';
 
-function Azurlane({ match }) {
+export default function Azurlane({ match }) {
+  useTitleEffect('碧蓝航线');
   const routerSwitch = (
     <Switch>
       <Route path={`${match.url}/games`} component={Games} />
@@ -44,5 +46,3 @@ Azurlane.propTypes = {
     url: PropTypes.string,
   }).isRequired,
 };
-
-export default Azurlane;

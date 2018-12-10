@@ -7,8 +7,10 @@ import PropTypes from 'prop-types';
 import { getDefaultSelectedKey, linkProps } from '@/util';
 import Mainpage from './mainpage';
 import Calcular from './calcular';
+import useTitleEffect from '@/util/hooks/use-title-effect';
 
 function Kancolle({ match }) {
+  useTitleEffect('砍口垒');
   const routerSwitch = (
     <Switch>
       <Route path={`${match.url}/calculuar`} component={Calcular} />

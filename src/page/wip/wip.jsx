@@ -3,11 +3,13 @@ import { Menu, Card, Icon } from 'antd';
 import PropTypes from 'prop-types';
 import { Switch, Route, Link } from 'react-router-dom';
 import { getDefaultSelectedKey, linkProps } from '@/util';
+import useTitleEffect from '@/util/hooks/use-title-effect';
 import YwwuyiGame from './ywwuyi-game';
 import Unicode from './unicode';
 import './wip.less';
 
 function WIP({ match }) {
+  useTitleEffect('实验室');
   const [menuFold, setMenuFold] = useState(false);
   const routerSwitch = (
     <Switch>
