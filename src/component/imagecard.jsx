@@ -11,7 +11,8 @@ export default React.memo((props) => {
       hoverable
       bodyStyle={{
         height: '100%',
-        background: `url('${backgroundImage}') #F7F7F7 no-repeat center / contain`,
+        background: '#F7F7F7 no-repeat center / contain',
+        backgroundImage: backgroundImage && `url('${backgroundImage}')`,
         ...bodyStyle,
       }}
       {...cardProps}

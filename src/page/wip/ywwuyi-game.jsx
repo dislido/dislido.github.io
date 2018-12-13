@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
 
+/**
+ * 一个人带一只鸡，一只狗，一条鱼，一只鸭子和一缸米过河。
+ * 没人的时候，鸡会打狗，狗会摸鱼。
+ * 鸭子不在的时候人会吃米。
+ * 狗和鸭子独处会打架，但是鸭子在船上会肝砍口垒所以不会和狗打架。
+ * 人和狗或者人和鸭子在船上时，人会被丢下去。
+ * 已知人，鸭子和鸡和狗都能开船，船上最多装两个东西，问如何让所有东西平安过河。
+ */
 export default function YwwuyiGame() {
   const [left, setLeft] = useState(['人', '鸡', '狗', '鱼', '鸭子', '米']);
   const [boat, setBoat] = useState([]);

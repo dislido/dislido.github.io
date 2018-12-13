@@ -7,10 +7,12 @@ import Layout from './layout';
 import './style/index.less';
 
 ReactDOM.render(
-  <LocaleProvider locale={zhCN}>
-    <HashRouter>
-      <Layout />
-    </HashRouter>
-  </LocaleProvider>,
+  <React.StrictMode>
+    <LocaleProvider locale={zhCN}>
+      <HashRouter>
+        <Layout />
+      </HashRouter>
+    </LocaleProvider>
+  </React.StrictMode>,
   document.getElementById('app'),
 );

@@ -4,10 +4,11 @@ import {
   Route, Switch, Link,
 } from 'react-router-dom';
 import { getDefaultSelectedKey, linkProps } from '@/util';
-import Home from '@/page/home';
-import WIP from '@/page/wip';
-import Kancolle from '@/page/kancolle';
-import Azurlane from '@/page/azurlane';
+
+const Home = React.lazy(() => import('@/page/home'));
+const WIP = React.lazy(() => import('@/page/wip'));
+const Kancolle = React.lazy(() => import('@/page/kancolle'));
+const Azurlane = React.lazy(() => import('@/page/azurlane'));
 
 export default function Layout() {
   const routerSwitch = (
@@ -60,7 +61,9 @@ export default function Layout() {
           </div>
         </div>
       </header>
-      {routerSwitch}
+      <React.Suspense fallback={<h2>Loading</h2>}>
+        {routerSwitch}
+      </React.Suspense>
     </div>
   );
 }
