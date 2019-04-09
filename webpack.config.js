@@ -4,7 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const dllManifestDev = require('./vendor/manifest.dev.json');
@@ -66,7 +66,7 @@ module.exports = {
     ],
   },
   plugins: [
-    new CleanWebpackPlugin(['dist/**/*']),
+    new CleanWebpackPlugin(),
     new CopyWebpackPlugin([
       { from: `vendor/${vendorFileName}` },
     ]),
@@ -100,11 +100,7 @@ module.exports = {
   },
   optimization: {
     minimizer: [
-      new UglifyJsPlugin({
-        cache: true,
-        parallel: true,
-        sourceMap: true,
-      }),
+      new TerserPlugin({ cache: true, parallel: true, sourceMap: true }),
       new OptimizeCSSAssetsPlugin({}),
     ],
   },

@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Card } from 'antd';
 import './imagecard.less';
 
-export default React.memo((props) => {
+const ImageCard = React.memo((props) => {
   const {
     backgroundImage, bodyStyle, text, ...cardProps
   } = props;
@@ -25,3 +26,16 @@ export default React.memo((props) => {
     </Card>
   );
 });
+
+ImageCard.propTypes = {
+  backgroundImage: PropTypes.string,
+  bodyStyle: PropTypes.object,
+  text: PropTypes.string,
+};
+ImageCard.defaultProps = {
+  backgroundImage: null,
+  bodyStyle: {},
+  text: null,
+};
+
+export default ImageCard;

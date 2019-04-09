@@ -11,10 +11,12 @@ export default function STGGame() {
   if (!loadFinished) {
     return <h2>Loading...</h2>;
   }
-  return <>
-    <div>
-      <p>控制台</p>
-    </div>
-    <canvas width="800" height="480" />
-  </>;
+  return (
+    <>
+      <div>
+        <p>控制台</p>
+      </div>
+      <canvas width="800" height="480" />
+    </>
+  );
 }
