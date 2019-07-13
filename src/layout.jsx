@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, Icon } from 'antd';
+import { Menu, Icon, Dropdown } from 'antd';
 import {
   Route, Switch, Link,
 } from 'react-router-dom';
@@ -9,6 +9,16 @@ const Home = React.lazy(() => import('@/page/home'));
 const WIP = React.lazy(() => import('@/page/wip'));
 const Kancolle = React.lazy(() => import('@/page/kancolle'));
 const Azurlane = React.lazy(() => import('@/page/azurlane'));
+
+const githubDropdown = (
+  <Menu>
+    <Menu.Item>
+      <a target="_blank" rel="noopener noreferrer" href="/cqnode">
+        cqnode
+      </a>
+    </Menu.Item>
+  </Menu>
+);
 
 export default function Layout() {
   const routerSwitch = (
@@ -54,11 +64,17 @@ export default function Layout() {
               </Link>
             </Menu.Item>
           </Menu>
-          <div className="headerMenu-addon">
-            <a href="https://github.com/dislido" target="_blank" rel="noopener noreferrer" title="github">
+          <Dropdown overlay={githubDropdown} className="headerMenu-addon">
+            <a
+              href="https://github.com/dislido"
+              style={{ color: 'black' }}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="github"
+            >
               <Icon type="github" />
             </a>
-          </div>
+          </Dropdown>
         </div>
       </header>
       <React.Suspense fallback={<h2>Loading</h2>}>
