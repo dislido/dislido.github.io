@@ -19,16 +19,16 @@ self.addEventListener('fetch', (event) => {
           return response;
         }
         const requestToCache = event.request.clone();
-        return fetch(requestToCache).then((response) => {
-          if (!response || response.status !== 200) {
-            return response;
+        return fetch(requestToCache).then((resp) => {
+          if (!resp || resp.status !== 200) {
+            return resp;
           }
-          const responseToCache = response.clone();
+          const responseToCache = resp.clone();
           caches.open(cacheName)
             .then((cache) => {
               cache.put(requestToCache, responseToCache);
             });
-          return response;
+          return resp;
         });
       }),
   );

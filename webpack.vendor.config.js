@@ -18,7 +18,7 @@ const createConfig = mode => ({
     library: '[name]_[hash:6]',
   },
   plugins: [
-    new CleanWebpackPlugin({ cleanOnceBeforeBuildPatterns: mode === 'development' ? ['vendor/**/*'] : [] }),
+    new CleanWebpackPlugin(),
     new webpack.DllPlugin({
       name: '[name]_[hash:6]',
       path: path.join(__dirname, `vendor/manifest.${shorthand(mode)}.json`),

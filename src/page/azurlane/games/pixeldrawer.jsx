@@ -44,8 +44,11 @@ export default function PixelDrawer() {
   } = useColor();
   const draw = (e) => {
     const [x, y] = e.target.dataset.pos.split(' ');
-    lines[y][x] = currentColor;
-    setLines(lines);
+    /** @todo use immutable */
+    const newLines = [];
+    lines.forEach(l => newLines.push(l));
+    newLines[y][x] = currentColor;
+    setLines(newLines);
   };
   const clearCanvas = () => setLines(initCanvas());
   return (
