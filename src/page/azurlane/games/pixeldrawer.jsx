@@ -23,12 +23,12 @@ function useColor() {
     addColor: () => {
       if (!currentColor || colorList.includes(currentColor) || colorList.length >= 37) return;
       colorList.push(currentColor);
-      setColorList(colorList);
+      setColorList([...colorList]);
     },
     deleteColor: () => {
       if (!currentColor) return;
       colorList.splice(colorList.indexOf(currentColor), 1);
-      setColorList(colorList);
+      setColorList([...colorList]);
     },
     isColorSaved: colorList.includes(currentColor),
   };
