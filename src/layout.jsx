@@ -4,6 +4,7 @@ import {
   Route, Switch, Link,
 } from 'react-router-dom';
 import { getDefaultSelectedKey, linkProps } from '@/util';
+import japarifont from './font/japarifont.woff';
 
 const Home = React.lazy(() => import('@/page/home'));
 const WIP = React.lazy(() => import('@/page/wip'));
@@ -33,6 +34,13 @@ export default function Layout() {
 
   return (
     <div style={{ minWidth: '1366px', overflowX: 'hidden' }}>
+      <style>
+        {`
+        @font-face {
+          font-family: 'japarifont';
+          src: url('${japarifont}') format('woff');
+        }`}
+      </style>
       <header>
         <div className="headerMenu" style={{ display: 'flex' }}>
           <Menu

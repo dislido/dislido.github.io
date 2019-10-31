@@ -1,13 +1,13 @@
 import React from 'react';
-import { Menu } from 'antd';
 import useTitleEffect from '@/util/hooks/use-title-effect';
+import '../../web-component/japari-text';
 
 export default function Home() {
   useTitleEffect('首页');
   return (
     <div>
-      <Menu />
-      明明是首页却一行代码都没写
+      <japari-text text="DisLido" style={{ fontSize: '48px' }} />
+      施工中......
     </div>
   );
 }

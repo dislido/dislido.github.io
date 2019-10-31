@@ -51,7 +51,7 @@ module.exports = {
           'less-loader',
         ],
       }, {
-        test: /\.(jpe?g|png)$/,
+        test: /\.(jpe?g|png|woff)$/,
         use: [
           {
             loader: 'file-loader',
