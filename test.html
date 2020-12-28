@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <title>test</title>
+    <style>
+      .rotate {
+        transform: rotate(180deg);
+      }
+    </style>
+  </head>
+  <body>
+    <div style="display: flex">
+      <div id="el" style="transition: all 1s" class="rotate"></div>
+    </div>
+    <div
+      style="
+        height: 200px;
+        width: 200px;
+        overflow: hidden;
+      "
+    >
+      <div
+        style="
+          background-color: red;
+          height: 300px;
+          width: 300px;
+          top: -50px;
+          left: -50px;
+          position: relative;
+          filter: blur(13px);
+        "
+      >
+      </div>
+    </div>
+    <button onclick="javascript:document.getElementById('el').classList.toggle('rotate')">toggle</button>
+  </body>
+</html>
